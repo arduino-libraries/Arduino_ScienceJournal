@@ -1,3 +1,4 @@
+#include "LowPower.h"
 #include <arm_math.h>
 
 #include <Arduino_APDS9960.h>
@@ -148,16 +149,14 @@ void setup() {
   BLE.addService(service);
   BLE.advertise();
 
-  digitalWrite(LED_BUILTIN, HIGH);
+  lowPower();
 }
 
 void loop() {
+  BLE.poll(1000);
   while (BLE.connected()) {
-    unsigned long now = millis();
-    if (abs((long) now - (long) lastNotify) >= 100) {
-      updateSubscribedCharacteristics();
-      lastNotify = now;
-    }
+    lowPowerBleWait(100);
+    updateSubscribedCharacteristics();
   }
 }
 
