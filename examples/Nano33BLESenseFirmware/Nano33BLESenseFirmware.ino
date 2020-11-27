@@ -13,7 +13,6 @@ const float TEMPERATURE_CALIBRATION = -5.0;
 
 #define SCIENCE_KIT_UUID(val) ("555a0002-" val "-467a-9538-01f0652c74e8")
 #define RESISTANCE_PIN A0
-#define INPUT_VOLTAGE 3.3
 #define VOLTAGE_BUFFER_SIZE 16
 
 //#define DEBUG 0
@@ -31,7 +30,7 @@ BLECharacteristic              colorCharacteristic        (SCIENCE_KIT_UUID("001
 BLEUnsignedShortCharacteristic soundPressureCharacteristic(SCIENCE_KIT_UUID("0019"), BLENotify);
 BLEFloatCharacteristic         resistanceCharacteristic   (SCIENCE_KIT_UUID("0020"), BLENotify);
 
-short voltageBufferIndex = 0;
+byte voltageBufferIndex = 0;
 bool voltageBufferFilled = false;
 short soundSampleBuffer[256];
 short voltageSampleBuffer[VOLTAGE_BUFFER_SIZE];
@@ -53,23 +52,22 @@ uint16_t getSoundAverage() {
 }
 
 void readVoltage() {
-  voltageSampleBuffer[voltageBufferIndex] = analogRead(RESISTANCE_PIN);
-  voltageBufferIndex++;
-  if (!voltageBufferFilled && voltageBufferIndex == VOLTAGE_BUFFER_SIZE) {
+  voltageSampleBuffer[voltageBufferIndex] = analogRead(RESISTANCE_PIN);  
+  if (!voltageBufferFilled && voltageBufferIndex == VOLTAGE_BUFFER_SIZE - 1) {
     voltageBufferFilled = true;
   }
-  voltageBufferIndex=voltageBufferIndex%VOLTAGE_BUFFER_SIZE;
+  voltageBufferIndex = (++voltageBufferIndex) % VOLTAGE_BUFFER_SIZE;
 }
 
 uint16_t getVoltageAverage() {
-  uint32_t avg = 0;
+  uint16_t avg = 0;
   for (int i = 0; i < VOLTAGE_BUFFER_SIZE; i++) {
     avg += voltageSampleBuffer[i];
   }
   if (voltageBufferFilled) {
-    return avg/VOLTAGE_BUFFER_SIZE;
+    return avg / VOLTAGE_BUFFER_SIZE;
   }
-  return avg/voltageBufferIndex;
+  return avg / voltageBufferIndex;
 }
 
 // String to calculate the local and device name
@@ -247,7 +245,7 @@ void updateSubscribedCharacteristics() {
   if(resistanceCharacteristic.subscribed()){
     readVoltage();
     uint16_t measuredValue = getVoltageAverage();
-    float measuredVoltage = measuredValue / 1024.0f * INPUT_VOLTAGE;
-    resistanceCharacteristic.writeValue(measuredVoltage);
+    float voltageRatio = 1024.0f / measuredValue;
+    resistanceCharacteristic.writeValue(voltageRatio);
   }
 }
