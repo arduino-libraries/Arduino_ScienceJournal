@@ -61,13 +61,11 @@ void readVoltage() {
 
 uint16_t getVoltageAverage() {
   uint16_t avg = 0;
-  for (int i = 0; i < VOLTAGE_BUFFER_SIZE; i++) {
+  byte upperBound = voltageBufferFilled ? VOLTAGE_BUFFER_SIZE : voltageBufferIndex;
+  for (int i = 0; i < upperBound; i++) {
     avg += voltageSampleBuffer[i];
   }
-  if (voltageBufferFilled) {
-    return avg / VOLTAGE_BUFFER_SIZE;
-  }
-  return avg / voltageBufferIndex;
+  return avg / upperBound;
 }
 
 // String to calculate the local and device name
