@@ -81,13 +81,13 @@ void setup() {
   digitalWrite(RESISTANCE_AUX_PIN, LOW);
 
   if (!INA226.begin(0x45)) {
-    Serial.println("Failled to initialized INA226!");
+    Serial.println("Failed to initialized INA226!");
 
     while (1);
   }
 
   if (!imu.begin()) {
-    Serial.println("Failled to initialized IMU!");
+    Serial.println("Failed to initialized IMU!");
 
     while (1);
   }
@@ -97,7 +97,7 @@ void setup() {
   imu.setupGyro(imu.LSM9DS1_GYROSCALE_245DPS);
 
   if (!BLE.begin()) {
-    Serial.println("Failled to initialized BLE!");
+    Serial.println("Failed to initialized BLE!");
 
     while (1);
   }

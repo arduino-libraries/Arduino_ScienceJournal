@@ -2,10 +2,10 @@ MKR Science Kit Firmware - BLE specifications.txt
 =================================================
 
 
-GAP (Adversisement)
+GAP (Advertisement)
 -------------------
 Local name:    MKRSci<last 4 characters of BT address>
-Serivice UUID: 555a0001-0000-467a-9538-01f0652c74e8
+Service UUID: 555a0001-0000-467a-9538-01f0652c74e8
 
 
 GATT
@@ -114,7 +114,7 @@ UUID:       555a0001-5001-467a-9538-01f0652c74e8
 Properties: notify
 Value size: 12 bytes
 Data format: Array of 3 x 32-bit IEEE floats (little endian)
-Description: X, Y, Z acceleration values in G's, if subscribed notification sent every 10 ms
+Description: X, Y, Z acceleration values in g's, if subscribed notification sent every 10 ms
 
 Gyroscope Characteristic
 ~~~~~~~~~~~~~~~~~~~~~~~~
