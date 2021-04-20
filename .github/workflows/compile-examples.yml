@@ -1,0 +1,66 @@
+name: Compile Examples
+
+# See: https://docs.github.com/en/free-pro-team@latest/actions/reference/events-that-trigger-workflows
+on:
+  push:
+    paths:
+      - ".github/workflows/compile-examples.yml"
+      - "library.properties"
+      - "examples/**"
+      - "src/**"
+  pull_request:
+    paths:
+      - ".github/workflows/compile-examples.yml"
+      - "library.properties"
+      - "examples/**"
+      - "src/**"
+  schedule:
+    # Run every Tuesday at 8 AM UTC to catch breakage caused by changes to external resources (libraries, platforms).
+    - cron: "0 8 * * TUE"
+  workflow_dispatch:
+  repository_dispatch:
+
+jobs:
+  build:
+    name: ${{ matrix.board.fqbn }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+
+      matrix:
+        board:
+          - fqbn: arduino:mbed_nano:nano33ble
+            platforms: |
+              - name: arduino:mbed_nano
+            libraries: |
+              - name: Arduino_APDS9960
+              - name: Arduino_HTS221
+              - name: Arduino_LPS22HB
+              - name: Arduino_LSM9DS1
+            sketch-paths: examples/Nano33BLESenseFirmware
+          - fqbn: arduino:samd:mkrwifi1010
+            platforms: |
+              - name: arduino:samd
+            libraries: |
+              - name: ArduinoBLE
+              - name: Adafruit LSM9DS1 Library
+            sketch-paths: examples/PhysicsLabFirmware
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Compile examples
+        uses: arduino/compile-sketches@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          fqbn: ${{ matrix.board.fqbn }}
+          platforms: ${{ matrix.board.platforms }}
+          libraries: |
+            # Install the library from the local path.
+            - source-path: ./
+            # Board-specific library dependencies
+            ${{ matrix.board.libraries }}
+          sketch-paths: |
+            ${{ matrix.board.sketch-paths }}
