@@ -1,10 +1,10 @@
 BLE Sense - BLE specifications.txt
 ==================================
 
-GAP (Adversisement)
+GAP (Advertisement)
 -------------------
 Local name:    BLESense - <last 4 characters of BT address>
-Serivice UUID: 555a0002-0000-467a-9538-01f0652c74e8
+Service UUID: 555a0002-0000-467a-9538-01f0652c74e8
 
 
 GATT
