@@ -41,6 +41,8 @@ jobs:
               - name: Arduino_HTS221
               - name: Arduino_LPS22HB
               - name: Arduino_LSM9DS1
+              - name: ArduinoBLE
+              - name: Arduino_CMSIS-DSP
             sketch-paths: examples/Nano33BLESenseFirmware
           - fqbn: arduino:samd:mkrwifi1010
             platforms: |
