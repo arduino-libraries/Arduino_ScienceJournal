@@ -100,7 +100,7 @@ void setup() {
   }
 
   if (!BLE.begin()) {
-    printSerialMsg("Failed to initialized BLE!");
+    printSerialMsg("Failed to initialize BLE!");
     blinkLoop();
   }
 
