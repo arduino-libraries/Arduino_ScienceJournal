@@ -4,7 +4,6 @@
 #include <ArduinoBLE.h>
 
 const int VERSION = 0x00000001;
-const float TEMPERATURE_CALIBRATION = -5.0;
 
 #define SCIENCE_KIT_UUID(val) ("555a0002-" val "-467a-9538-01f0652c74e8")
 #define RESISTANCE_PIN A0
