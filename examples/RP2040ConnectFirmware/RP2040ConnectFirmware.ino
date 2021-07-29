@@ -89,7 +89,7 @@ void setup() {
   pinMode(RESISTANCE_PIN, INPUT); // Used for reading resistance
 
   if (!IMU.begin()) {
-    printSerialMsg("Failed to initialized IMU!");
+    printSerialMsg("Failed to initialize IMU!");
     blinkLoop();
   }
 
