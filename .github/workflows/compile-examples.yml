@@ -43,21 +43,21 @@ jobs:
               - name: Arduino_LSM9DS1
               - name: ArduinoBLE
               - name: Arduino_CMSIS-DSP
-            sketch-paths: examples/Nano33BLESenseFirmware
+            sketch-paths: examples/ScienceKit/Nano33BLESenseFirmware
           - fqbn: arduino:mbed_nano:nanorp2040connect
             platforms: |
               - name: arduino:mbed_nano
             libraries: |
               - name: Arduino_LSM6DSOX
               - name: ArduinoBLE
-            sketch-paths: examples/RP2040ConnectFirmware
+            sketch-paths: examples/ScienceKit/RP2040ConnectFirmware
           - fqbn: arduino:samd:mkrwifi1010
             platforms: |
               - name: arduino:samd
             libraries: |
               - name: ArduinoBLE
               - name: Adafruit LSM9DS1 Library
-            sketch-paths: examples/PhysicsLabFirmware
+            sketch-paths: examples/ScienceKit/PhysicsLabFirmware
 
     steps:
       - name: Checkout repository
