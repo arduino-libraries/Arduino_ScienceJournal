@@ -7,19 +7,19 @@
 // Flash memory
 #include "SerialFlash.h"
 #include <SPI.h>
-
+#include <Wire.h>
 // IMU
 #include <Arduino_LSM6DSOX.h>
 
 // BMM150
-#include "DFRobot_BMM150.h"
+#include <BoschSensorClass.h>
 
 // INA
 #include <INA.h>
 #include <avr/dtostrf.h>
 
-DFRobot_BMM150_I2C bmm150(&Wire, I2C_ADDRESS_1);
-
+LSM6DSOXClass IMU_SK = LSM6DSOXClass(Wire,0x6A);
+BoschSensorClass BME = BoschSensorClass(Wire);
 const int FlashChipSelect = 2;
 
 const uint32_t SHUNT_MICRO_OHM{100000};  ///< Shunt resistance in Micro-Ohm, e.g. 100000 is 0.1 Ohm
@@ -45,24 +45,13 @@ void sensorsInit() {
   INA.alertOnBusOverVoltage(true, 5000);  // Trigger alert if over 5V on bus
 
   // bmm150
-  while(bmm150.begin()){
-    Serial.println("bmm150 init failed, Please try again!");
-    delay(1000);
-  } Serial.println("bmm150 init success!");
-  Serial.println("bmm150 init success!");
-
-  // BMM150 init
-  // Set sensor operation mode
-  bmm150.setOperationMode(BMM150_POWERMODE_NORMAL);
-  //Set preset mode
-  bmm150.setPresetMode(BMM150_PRESETMODE_HIGHACCURACY);
-  // Set the rate of obtaining geomagnetic data, the higher, the faster (without delay function)
-  bmm150.setRate(BMM150_DATA_RATE_10HZ);
-  // Enable the measurement at x-axis, y-axis and z-axis, 
-  bmm150.setMeasurementXYZ();
+   if (!BME.begin()) {
+    Serial.println("Failed to initialize IMU!");
+    while (1);
+  }
 
   // LSM6DSOX init
-  if (!IMU.begin()) {
+  if (!IMU_SK.begin()) {
     Serial.println("Failed to initialize IMU!");
     while (1);
   }

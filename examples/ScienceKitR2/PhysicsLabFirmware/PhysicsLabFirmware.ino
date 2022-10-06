@@ -207,9 +207,9 @@ void updateSubscribedIMUCharacteristics() {
   if (millis() - imuTime > IMU_UPDATE_TIME) {
     imuTime = millis();
     if (accelerationCharacteristic.subscribed()) {
-      if (IMU.accelerationAvailable()) {
+      if (IMU_SK.accelerationAvailable()) {
         float x, y, z;
-        IMU.readAcceleration(x, y, z);
+        IMU_SK.readAcceleration(x, y, z);
         float acceleration[3];
 
         acceleration[0] = x;
@@ -220,9 +220,9 @@ void updateSubscribedIMUCharacteristics() {
     }
 
     if (gyroscopeCharacteristic.subscribed()) {
-      if (IMU.gyroscopeAvailable()) {
+      if (IMU_SK.gyroscopeAvailable()) {
         float x, y, z;
-        IMU.readGyroscope(x, y, z);
+        IMU_SK.readGyroscope(x, y, z);
         float gyroscope[3];
 
         gyroscope[0] = x;
@@ -234,12 +234,15 @@ void updateSubscribedIMUCharacteristics() {
 
 
     if (magneticFieldCharacteristic.subscribed()) {
-      sBmm150MagData_t m = bmm150.getGeomagneticData();
-      float magneticField[3];
-      magneticField[0] = m.x;
-      magneticField[1] = m.y;
-      magneticField[2] = m.z;
-      magneticFieldCharacteristic.writeValue((byte*)magneticField, sizeof(magneticField));
+      float x, y, z;
+      if (BME.magneticFieldAvailable()) {
+        BME.readMagneticField(x, y, z);
+        float magneticField[3];
+        magneticField[0] = x;
+        magneticField[1] = y;
+        magneticField[2] = z;
+        magneticFieldCharacteristic.writeValue((byte*)magneticField, sizeof(magneticField));
+      }
     }
   }
 }
