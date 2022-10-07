@@ -66,7 +66,7 @@ jobs:
               - name: Arduino_HTS221
               - name: Arduino_LPS22HB
               - name: Arduino_LSM6DSOX
-              #- name: Arduino_BMI270_BMM150
+              - name: Arduino_BMI270_BMM150
               - name: INA2xx
               - name: SerialFlash
               - name: ArduinoBLE
@@ -78,7 +78,7 @@ jobs:
             libraries: |
               - name: ArduinoBLE
               - name: Arduino_LSM6DSOX
-              #- name: Arduino_BMI270_BMM150
+              - name: Arduino_BMI270_BMM150
               - name: INA2xx
               - name: SerialFlash
             sketch-paths: examples/ScienceKitR2/PhysicsLabFirmware
