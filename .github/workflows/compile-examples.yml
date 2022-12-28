@@ -43,25 +43,49 @@ jobs:
               - name: Arduino_LSM9DS1
               - name: ArduinoBLE
               - name: Arduino_CMSIS-DSP
-            sketch-paths: examples/Nano33BLESenseFirmware
+            sketch-paths: examples/ScienceKit/Nano33BLESenseFirmware
           - fqbn: arduino:mbed_nano:nanorp2040connect
             platforms: |
               - name: arduino:mbed_nano
             libraries: |
               - name: Arduino_LSM6DSOX
               - name: ArduinoBLE
-            sketch-paths: examples/RP2040ConnectFirmware
+            sketch-paths: examples/ScienceKit/RP2040ConnectFirmware
           - fqbn: arduino:samd:mkrwifi1010
             platforms: |
               - name: arduino:samd
             libraries: |
               - name: ArduinoBLE
               - name: Adafruit LSM9DS1 Library
-            sketch-paths: examples/PhysicsLabFirmware
+            sketch-paths: examples/ScienceKit/PhysicsLabFirmware
+          - fqbn: arduino:mbed_nano:nano33ble
+            platforms: |
+              - name: arduino:mbed_nano
+            libraries: |
+              - name: Arduino_APDS9960
+              - name: Arduino_HTS221
+              - name: Arduino_LPS22HB
+              - name: Arduino_LSM6DSOX
+              - name: Arduino_BMI270_BMM150
+              - name: INA2xx
+              - name: SerialFlash
+              - name: ArduinoBLE
+              - name: Arduino_CMSIS-DSP
+            sketch-paths: examples/ScienceKitR2/Nano33BLESenseFirmware
+          - fqbn: arduino:samd:mkrwifi1010
+            platforms: |
+              - name: arduino:samd
+            libraries: |
+              - name: ArduinoBLE
+              - name: Arduino_LSM6DSOX
+              - name: Arduino_BMI270_BMM150
+              - name: INA2xx
+              - name: SerialFlash
+            sketch-paths: examples/ScienceKitR2/PhysicsLabFirmware
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Compile examples
         uses: arduino/compile-sketches@v1
@@ -80,7 +104,7 @@ jobs:
           sketches-report-path: ${{ env.SKETCHES_REPORTS_PATH }}
 
       - name: Save sketches report as workflow artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           if-no-files-found: error
           path: ${{ env.SKETCHES_REPORTS_PATH }}

@@ -113,7 +113,7 @@ void setup() {
   #endif
   address.toUpperCase();
 
-  name = "BLE Sense - ";
+  name = "Nano RP2040 Connect - ";
   name += address[address.length() - 5];
   name += address[address.length() - 4];
   name += address[address.length() - 2];
