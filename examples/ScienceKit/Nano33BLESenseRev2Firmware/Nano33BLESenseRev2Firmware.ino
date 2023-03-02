@@ -82,7 +82,7 @@ void printSerialMsg(const char* msg) {
 
 void setup() {
 #ifdef DEBUG
-  Serial.begin(115200);
+  Serial.begin(9600);
   while (!Serial)
     ;
   Serial.println("Started");
@@ -148,7 +148,6 @@ void setup() {
   BLE.advertise();
 
   lowPower();
-  Serial.println("Initialization done!");
 }
 
 void loop() {
