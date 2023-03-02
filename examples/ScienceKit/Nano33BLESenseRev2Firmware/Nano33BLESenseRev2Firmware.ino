@@ -170,12 +170,6 @@ void updateSubscribedCharacteristics() {
       acceleration[0] = x;
       acceleration[1] = y;
       acceleration[2] = z;
-      Serial.print("values: ");
-      Serial.print(x);
-      Serial.print(" ");
-      Serial.print(y);
-      Serial.print(" ");
-      Serial.println(z);
       accelerationCharacteristic.writeValue((byte*)acceleration, sizeof(acceleration));
     }
   }
