@@ -160,7 +160,6 @@ void loop() {
 }
 
 void updateSubscribedCharacteristics() {
-  Serial.println("updateSubscribedCharacteristics");
   if (accelerationCharacteristic.subscribed()) {
     Serial.println("subricption done");
     if (IMU.accelerationAvailable()) {
