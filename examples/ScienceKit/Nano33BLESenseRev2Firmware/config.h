@@ -12,7 +12,6 @@ const int FlashChipSelect = 2;
 
 // IMU
 // BMM150 and bmi 270
-//#include <BoschSensorClass.h> 
 #include "Arduino_BMI270_BMM150.h"
 
 
@@ -38,7 +37,7 @@ void blinkLoop() {
 }
 
 void sensorsInit() {
-  // bmm150
+  // bmm150 and bmi270
   if (!IMU.begin()) {
     Serial.println("Failed to initialize IMU!");
     while (1);
