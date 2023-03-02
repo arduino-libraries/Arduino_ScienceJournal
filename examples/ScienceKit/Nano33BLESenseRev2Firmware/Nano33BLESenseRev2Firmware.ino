@@ -161,7 +161,6 @@ void loop() {
 
 void updateSubscribedCharacteristics() {
   if (accelerationCharacteristic.subscribed()) {
-    Serial.println("subricption done");
     if (IMU.accelerationAvailable()) {
       Serial.println("acceleration data available");
       float x, y, z;
