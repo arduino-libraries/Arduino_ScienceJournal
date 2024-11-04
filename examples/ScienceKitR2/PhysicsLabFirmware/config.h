@@ -45,14 +45,14 @@ void sensorsInit() {
   INA.alertOnBusOverVoltage(true, 5000);  // Trigger alert if over 5V on bus
 
   // bmm150
-   if (!BME.begin()) {
-    Serial.println("Failed to initialize IMU!");
+   if (!BME.begin(BOSCH_MAGNETOMETER_ONLY)) {
+    Serial.println("Failed to initialize MAGNETOMETER!");
     while (1);
   }
 
   // LSM6DSOX init
   if (!IMU_SK.begin()) {
-    Serial.println("Failed to initialize IMU!");
+    Serial.println("Failed to initialize ACCELEROMETER!");
     while (1);
   }
   Serial.println("IMU Initialized");
