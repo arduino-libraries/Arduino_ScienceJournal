@@ -52,7 +52,7 @@ void sensorsInit() {
 
   // LSM6DSOX init
   if (!IMU_SK.begin()) {
-    Serial.println("Failed to initialize ACCELERATOMETER!");
+    Serial.println("Failed to initialize ACCELEROMETER!");
     while (1);
   }
   Serial.println("IMU Initialized");
